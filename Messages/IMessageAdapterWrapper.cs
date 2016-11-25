@@ -13,6 +13,9 @@ Created: 2015, 11, 11, 2:32 PM
 Copyright 2010 by StockSharp, LLC
 *******************************************************************************************/
 #endregion S# License
+
+using System.Diagnostics;
+
 namespace StockSharp.Messages
 {
 	using System;
@@ -98,7 +101,11 @@ namespace StockSharp.Messages
 		/// <param name="message">Message.</param>
 		public virtual void SendInMessage(Message message)
 		{
-			InnerAdapter.SendInMessage(message);
+            if (message.Type == MessageTypes.OrderRegister)
+            {
+                Debug.WriteLine("Wrapper. Order " + message.LocalTime);
+            }
+            InnerAdapter.SendInMessage(message);
 		}
 
 		/// <summary>

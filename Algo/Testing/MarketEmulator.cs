@@ -13,6 +13,9 @@ Created: 2015, 11, 11, 2:32 PM
 Copyright 2010 by StockSharp, LLC
 *******************************************************************************************/
 #endregion S# License
+
+using System.Diagnostics;
+
 namespace StockSharp.Algo.Testing
 {
 	using System;
@@ -1526,6 +1529,10 @@ namespace StockSharp.Algo.Testing
 		/// <param name="message">Message.</param>
 		public void SendInMessage(Message message)
 		{
+		    if (message.Type == MessageTypes.OrderRegister)
+		    {
+		        Debug.WriteLine("Emulator. Order "+message.LocalTime);
+		    }
 			if (message == null) 
 				throw new ArgumentNullException(nameof(message));
 

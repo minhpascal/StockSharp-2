@@ -13,6 +13,9 @@ Created: 2015, 11, 11, 2:32 PM
 Copyright 2010 by StockSharp, LLC
 *******************************************************************************************/
 #endregion S# License
+
+using System.Diagnostics;
+
 namespace StockSharp.Algo
 {
 	using System;
@@ -313,6 +316,7 @@ namespace StockSharp.Algo
 				case MessageTypes.OrderCancel:
 				case MessageTypes.OrderGroupCancel:
 				{
+                    //Debug.WriteLine("Basket. Order "+message.LocalTime);
 					var ordMsg = (OrderMessage)message;
 					ProcessAdapterMessage(ordMsg.PortfolioName, ordMsg);
 					break;

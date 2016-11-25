@@ -122,6 +122,7 @@ namespace StockSharp.Algo
 					throw new ArgumentNullException(nameof(parent));
 
 				_parent = parent;
+
 			}
 
 			private void CloseTimer()
@@ -173,7 +174,9 @@ namespace StockSharp.Algo
 
 									_marketTimeMessage.LocalTime = TimeHelper.Now;
 									RaiseNewOutMessage(_marketTimeMessage);
-								})
+                                    //RaiseNewOutMessage(_marketTimeMessage);
+                                    //RaiseNewOutMessage(_marketTimeMessage);
+                                })
 								.Interval(_parent.MarketTimeChangedInterval);
 						}
 						break;
@@ -458,7 +461,7 @@ namespace StockSharp.Algo
 
 				_adapter = value;
 				_inAdapter = _adapter;
-				_timeAdapter = null;
+				//_timeAdapter = null;
 
 				if (_adapter != null)
 				{
@@ -474,8 +477,10 @@ namespace StockSharp.Algo
 					//	OwnInnerAdaper = true
 					//};
 
-					if (TimeChange)
-						_inAdapter = _timeAdapter = new TimeAdapter(this, _inAdapter) { OwnInnerAdaper = true };
+				    if (TimeChange)
+				    {
+				        _inAdapter = _timeAdapter = new TimeAdapter(this, _inAdapter) { OwnInnerAdaper = true };
+				    }
 
 					if (LatencyManager != null)
 						_inAdapter = new LatencyMessageAdapter(_inAdapter) { LatencyManager = LatencyManager, OwnInnerAdaper = true };
@@ -616,8 +621,11 @@ namespace StockSharp.Algo
 			if (!InMessageChannel.IsOpened)
 				InMessageChannel.Open();
 
-			InMessageChannel.SendInMessage(message);
-		}
+            
+
+            InMessageChannel.SendInMessage(message);
+
+        }
 
 		/// <summary>
 		/// Send outgoing message.
@@ -901,11 +909,15 @@ namespace StockSharp.Algo
 									var isAllConnected = _adapterStates.CachedValues.All(v => v == ConnectionStates.Connected);
 
 									// raise Connected event only one time when the last adapter connection successfully
-									if (isAllConnected)
-										RaiseConnected();
+								    if (isAllConnected)
+								    {
+                                            
+                                            RaiseConnected();
+								    }
 								}
 							}
 
+                            
 							RaiseConnectedEx(adapter);
 
 							if (adapter.PortfolioLookupRequired)
@@ -923,6 +935,8 @@ namespace StockSharp.Algo
 
 							if (message is RestoredConnectMessage)
 								RaiseRestored();
+
+                             
 						}
 						else
 						{

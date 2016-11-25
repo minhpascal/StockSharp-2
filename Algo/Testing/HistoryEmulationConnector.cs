@@ -13,6 +13,9 @@ Created: 2015, 11, 11, 2:32 PM
 Copyright 2010 by StockSharp, LLC
 *******************************************************************************************/
 #endregion S# License
+
+using System.Diagnostics;
+
 namespace StockSharp.Algo.Testing
 {
 	using System;
@@ -388,7 +391,12 @@ namespace StockSharp.Algo.Testing
 		/// <param name="message">The message, containing market data.</param>
 		protected override void OnProcessMessage(Message message)
 		{
-			try
+            Debug.WriteLine("OnProc "+message.Type+" "+message.Adapter+" "+message.LocalTime+" "+message.IsBack);
+            if (message.Type == MessageTypes.OrderRegister)
+            {
+                Debug.WriteLine("History. Order " + message.LocalTime);
+            }
+            try
 			{
 				switch (message.Type)
 				{
