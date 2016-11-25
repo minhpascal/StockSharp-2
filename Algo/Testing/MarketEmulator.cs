@@ -1529,10 +1529,6 @@ namespace StockSharp.Algo.Testing
 		/// <param name="message">Message.</param>
 		public void SendInMessage(Message message)
 		{
-		    if (message.Type == MessageTypes.OrderRegister)
-		    {
-		        Debug.WriteLine("Emulator. Order "+message.LocalTime);
-		    }
 			if (message == null) 
 				throw new ArgumentNullException(nameof(message));
 

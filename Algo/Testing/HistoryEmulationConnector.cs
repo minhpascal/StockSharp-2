@@ -391,11 +391,6 @@ namespace StockSharp.Algo.Testing
 		/// <param name="message">The message, containing market data.</param>
 		protected override void OnProcessMessage(Message message)
 		{
-            Debug.WriteLine("OnProc "+message.Type+" "+message.Adapter+" "+message.LocalTime+" "+message.IsBack);
-            if (message.Type == MessageTypes.OrderRegister)
-            {
-                Debug.WriteLine("History. Order " + message.LocalTime);
-            }
             try
 			{
 				switch (message.Type)
